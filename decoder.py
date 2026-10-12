@@ -88,12 +88,34 @@ def describe_wind(wdir, wspd, wgst):
     return text
 
 
+def parse_miles(visib):
+    """Convert an API visibility value to miles, or None if it can't be read.
+
+    Handles numbers, '10+', and fractions such as '1/4' or '1 1/2'.
+    """
+    if isinstance(visib, (int, float)):
+        return float(visib)
+    try:
+        total = 0.0
+        for part in str(visib).rstrip("+").split():
+            if "/" in part:
+                num, den = part.split("/")
+                total += float(num) / float(den)
+            else:
+                total += float(part)
+        return total
+    except (ValueError, ZeroDivisionError):
+        return None
+
+
 def describe_visibility(visib):
     if visib is None:
         return None
+    miles = parse_miles(visib)
+    if miles is None:
+        return None
     if isinstance(visib, str) and visib.endswith("+"):
-        return f"{visib[:-1]}+ miles, excellent visibility"
-    miles = float(visib)
+        return f"{miles:g}+ miles, excellent visibility"
     label = "excellent" if miles >= 10 else "good" if miles >= 5 else "reduced" if miles >= 3 else "poor"
     unit = "mile" if miles == 1 else "miles"
     return f"{miles:g} {unit}, {label} visibility"
@@ -121,6 +143,10 @@ def describe_weather(wx_string):
                 words.append(PHENOMENA[code])
             else:
                 words.append(code)
+        # A descriptor with no phenomenon after it (VCSH, TS) reads awkwardly
+        # as "showers of" or "thunderstorm with", so drop the dangling word.
+        if words and words[-1] in ("showers of", "thunderstorm with"):
+            words[-1] = words[-1].rsplit(" ", 1)[0]
         text = intensity + " ".join(words)
         if vicinity:
             text += " nearby"

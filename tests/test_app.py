@@ -84,6 +84,14 @@ READINGS = {
         {"temp": -4, "wxString": "FZFG", "visib": 0.25, "fltCat": "LIFR"},
         ["25°F (-4°C), cold", "Freezing fog", "0.25 miles, poor visibility", "Very poor visibility for flying"],
     ),
+    "fractional_visibility_fog": (
+        {"wxString": "FG", "visib": "1/4", "fltCat": "LIFR"},
+        ["0.25 miles, poor visibility", "Fog"],
+    ),
+    "showers_nearby": (
+        {"wxString": "VCSH"},
+        ["Showers nearby"],
+    ),
     "variable_wind": (
         {"wdir": "VRB", "wspd": 4},
         ["5 mph from a changing direction"],

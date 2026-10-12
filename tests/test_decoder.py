@@ -28,3 +28,18 @@ def test_variable_wind_and_thunderstorm():
     r = decode({**KHIO, "wdir": "VRB", "wspd": 4, "wxString": "+TSRA"})
     assert "changing direction" in r["wind"]
     assert r["weather"] == ["Heavy thunderstorm with rain"]
+
+
+def test_fractional_visibility_does_not_crash():
+    assert decode({**KHIO, "visib": "1/4"})["visibility"] == "0.25 miles, poor visibility"
+    assert decode({**KHIO, "visib": "1 1/2"})["visibility"] == "1.5 miles, poor visibility"
+
+
+def test_unreadable_visibility_is_skipped():
+    assert decode({**KHIO, "visib": "???"})["visibility"] is None
+
+
+def test_showers_in_vicinity_reads_naturally():
+    assert decode({**KHIO, "wxString": "VCSH"})["weather"] == ["Showers nearby"]
+    assert decode({**KHIO, "wxString": "TS"})["weather"] == ["Thunderstorm"]
+    assert decode({**KHIO, "wxString": "SHRA"})["weather"] == ["Showers of rain"]
