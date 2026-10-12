@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>METAR Weather Reader</h1>
+  <p class="subtitle">Enter an airport code to get a friendly weather report</p>
+
+  {% if error %}<div class="error" role="alert">{{ error }}</div>{% endif %}
+
+  <form class="form-box" method="post" action="{{ url_for('metar') }}">
+    <label for="code">Airport Code (ICAO):</label>
+    <input type="text" id="code" name="code" value="{{ code }}" placeholder="e.g., KHIO" maxlength="4" required autofocus>
+    <p class="hint">Examples: KHIO (Portland Hillsboro), KLAX (Los Angeles), KJFK (New York JFK)</p>
+    <button type="submit">Get Weather Report</button>
+  </form>
+
+  <div class="info">
+    <h2>What is METAR?</h2>
+    <p>METAR is a standardized weather report format used in aviation. This tool converts the cryptic METAR codes into plain English so you can easily understand current weather conditions at any airport.</p>
+  </div>
+{% endblock %}

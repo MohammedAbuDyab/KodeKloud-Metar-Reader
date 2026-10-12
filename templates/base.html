@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>METAR Reader</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin:0; min-height:100vh; padding:32px 16px; font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+           color:#2d3748; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .container { max-width: 640px; margin: 0 auto; background:#fff; border-radius:12px; padding:32px;
+                 box-shadow: 0 20px 50px rgba(0,0,0,.25); }
+    h1 { text-align:center; margin:0 0 8px; font-size:2rem; color:#2d3748; }
+    .subtitle { text-align:center; color:#718096; margin:0 0 24px; }
+    .form-box { background:#f9fafc; border-radius:8px; padding:24px; margin-bottom:24px; }
+    label { display:block; font-weight:600; margin-bottom:8px; }
+    input[type=text] { width:100%; padding:12px; font-size:1.05rem; border:1px solid #cbd5e0; border-radius:6px; text-transform:uppercase; }
+    input[type=text]::placeholder { text-transform:none; }
+    .hint { font-size:.8rem; color:#718096; font-style:italic; margin:8px 0 16px; }
+    button, .button { display:block; width:100%; padding:14px; font-size:1rem; font-weight:500; text-align:center; text-decoration:none;
+                      border:0; border-radius:6px; background:#2f8fda; color:#fff; cursor:pointer; }
+    button:hover, .button:hover { background:#2379bb; }
+    .info { background:#e8f3fc; border-left:4px solid #2f8fda; border-radius:6px; padding:16px 20px; }
+    .info h2 { margin:0 0 8px; font-size:1.05rem; }
+    .info p { margin:0; line-height:1.5; font-size:.92rem; }
+    .error { background:#fdecec; border-left:4px solid #e05555; color:#8a1f1f; padding:12px 16px; border-radius:6px; margin-bottom:24px; }
+    .current { background:#edf0f5; border-left:4px solid #2f8fda; border-radius:6px; padding:16px 20px; margin-bottom:24px; }
+    .current h2 { margin:0 0 8px; font-size:1.05rem; }
+    .current p { margin:0; font-size:1.1rem; }
+    .place { text-align:center; color:#718096; margin:0 0 24px; }
+    .details { border:1px solid #e2e8f0; border-radius:8px; padding:20px; margin-bottom:24px; }
+    .details h2 { margin:0 0 12px; padding-bottom:12px; border-bottom:1px solid #e2e8f0; font-size:1.05rem; }
+    .row { display:grid; grid-template-columns: 150px 1fr; gap:12px; padding:12px 10px; margin-bottom:6px; background:#f9fafc; border-radius:4px; }
+    .row b { font-weight:600; }
+    .raw { background:#2d3748; color:#fff; border-radius:8px; padding:16px; margin-bottom:24px; }
+    .raw h2 { margin:0 0 10px; font-size:1rem; }
+    .raw code { display:block; background:#1a202c; border-radius:6px; padding:12px; font-family: ui-monospace, Menlo, monospace; word-break:break-word; }
+    @media (max-width: 480px) { .row { grid-template-columns: 1fr; gap:2px; } .container { padding:20px; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>

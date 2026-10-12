@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>METAR Weather Reader</h1>
+  <p class="place">{{ report.name or report.station }} ({{ report.station }})</p>
+
+  <div class="current">
+    <h2>Current Conditions</h2>
+    <p>{{ report.summary }}</p>
+  </div>
+
+  <div class="details">
+    <h2>Detailed Information</h2>
+    {% if report.observed %}<div class="row"><b>Observation Time:</b><span>{{ report.observed }}</span></div>{% endif %}
+    <div class="row"><b>Wind:</b><span>{{ report.wind }}</span></div>
+    {% if report.visibility %}<div class="row"><b>Visibility:</b><span>{{ report.visibility }}</span></div>{% endif %}
+    {% if report.weather %}<div class="row"><b>Weather:</b><span>{{ report.weather|join(", ") }}</span></div>{% endif %}
+    <div class="row"><b>Sky Conditions:</b><span>{{ report.clouds|join("; ") or report.headline }}</span></div>
+    {% if report.temperature %}<div class="row"><b>Temperature:</b><span>{{ report.temperature }}</span></div>{% endif %}
+    {% if report.dewpoint %}<div class="row"><b>Dewpoint:</b><span>{{ report.dewpoint }}</span></div>{% endif %}
+    {% if report.pressure %}<div class="row"><b>Barometric Pressure:</b><span>{{ report.pressure }}</span></div>{% endif %}
+    {% if report.flight_category %}<div class="row"><b>Flight Conditions:</b><span>{{ report.flight_category }}</span></div>{% endif %}
+  </div>
+
+  <div class="raw">
+    <h2>Raw METAR</h2>
+    <code>{{ report.raw }}</code>
+  </div>
+
+  <a class="button" href="{{ url_for('index') }}">Check Another Airport</a>
+{% endblock %}
