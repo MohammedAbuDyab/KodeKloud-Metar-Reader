@@ -22,8 +22,8 @@ The page also lists temperature (°F and °C), wind in mph, visibility, sky laye
 ## Run it locally
 
 ```bash
-git clone <your-repo-url>
-cd <repo-folder>
+git clone https://github.com/MohammedAbuDyab/KodeKloud-Metar-Reader.git
+cd KodeKloud-Metar-Reader
 
 python3 -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
